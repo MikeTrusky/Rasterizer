@@ -32,10 +32,12 @@ void Rasterizer::DrawTriangle(Triangle & triangle)
 	float y3 = CalculateCanonicalViewY(triangle.vertices[2].y);
 #pragma endregion
 
+#pragma region Przeszukiwanie
 	buffer.minx = (int)min(x1, x2, x3);
 	buffer.maxx = (int)max(x1, x2, x3);
 	buffer.miny = (int)min(y1, y2, y3);
 	buffer.maxy = (int)max(y1, y2, y3);
+#pragma endregion
 
 #pragma region Obcinanie
 	buffer.minx = (int)max(buffer.minx, 0);

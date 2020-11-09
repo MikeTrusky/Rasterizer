@@ -129,6 +129,7 @@
     <ClCompile Include="Rasterizer.cpp" />
     <ClCompile Include="TGABuffer.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="VertexProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="TGABuffer.h" />
     <ClInclude Include="Triangle.h" />
+    <ClInclude Include="VertexProcessor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

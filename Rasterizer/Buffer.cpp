@@ -41,5 +41,5 @@ float Buffer::getDepth(int x, int y)
 
 void Buffer::setPixelColor(int x, int y, const Color &color)
 {
-	frame[y * w + x] = color.ToUint32_t();
+	frame[x + y * w] = color.ToUint32_t();
 }
