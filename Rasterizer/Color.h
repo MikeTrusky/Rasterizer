@@ -8,6 +8,7 @@ public:
 
 	Color() = default;
 	Color(float r, float g, float b, float a) : R(r), G(g), B(b), A(a) {};
+	Color(float r, float g, float b) : R(r), G(g), B(b), A(0) {};
 
 	uint32_t ToUint32_t() const;
 

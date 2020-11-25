@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 
 #define PI 3.1415926
 
@@ -28,6 +29,7 @@ inline float dot(float3 &vecA, float3 &vecB) { return vecA.x * vecB.x + vecA.y *
 inline float3 operator + (float3 &vecA, float3 &vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
 inline float3 operator - (float3 &vecA, float3 &vecB) { return float3(vecA.x - vecB.x, vecA.y - vecB.y, vecA.z - vecB.z); }
 inline float3 operator * (float3 &vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
+inline std::ostream& operator << (std::ostream& os, const float3& vec) { os << "x: " << vec.x << " y: " << vec.y << " z: " << vec.z << "\n"; return os; }
 #pragma endregion
 
 struct float4
@@ -96,7 +98,7 @@ inline float4 mul(float4x4 matrix, float4 value)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			values[i] += matrix[j][i] * value[j];
+			values[i] += value[j] * matrix[i][j];
 		}
 	}
 	float4 valueNew(values[0], values[1], values[2], values[3]);

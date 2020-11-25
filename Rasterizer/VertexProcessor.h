@@ -13,8 +13,9 @@ public:
 	void setLookAt(float3 eye, float3 center, float3 up);
 	void setIdentityView();
 	void setIdentity();
-	void multByRot(float, float3);
-	void multByTrans(float3);
+	void multByRotation(float a, float3 vec);
+	void multByTranslation(float3 vec);
+	void multByScale(float3 vec);
 	void transform(void);
 
 	float3 tr(const float3 &v);
