@@ -50,7 +50,6 @@ void VertexProcessor::multByRotation(float a, float3 vec)
 			   float4(vec.x * vec.z * (1 - c) - vec.y * s,	vec.y * vec.z * (1 - c) + vec.x * s,	vec.z * vec.z * (1 - c) + c,			0),
 			   float4(0,									0,										0,										1));
 	obj2world = mul(m, obj2world);
-	
 }
 
 void VertexProcessor::multByTranslation(float3 vec)
@@ -60,7 +59,6 @@ void VertexProcessor::multByTranslation(float3 vec)
 		float4(0, 0, 1, vec.z),
 		float4(0, 0, 0, 1));
 	obj2world = mul(m, obj2world);
-	
 }
 
 void VertexProcessor::multByScale(float3 vec)
@@ -70,7 +68,6 @@ void VertexProcessor::multByScale(float3 vec)
 			   float4(0, 0, vec.z, 0),
 			   float4(0, 0, 0, 1));
 	obj2world = mul(m, obj2world);
-	
 }
 
 void VertexProcessor::transform(void)

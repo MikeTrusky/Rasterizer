@@ -33,10 +33,10 @@ void Rasterizer::DrawTriangle(Triangle & triangle)
 #pragma endregion
 
 #pragma region Przeszukiwanie
-	buffer.minx = (int)min(x1, x2, x3);
-	buffer.maxx = (int)max(x1, x2, x3);
-	buffer.miny = (int)min(y1, y2, y3);
-	buffer.maxy = (int)max(y1, y2, y3);
+	buffer.minx = min(static_cast<int>(x1), static_cast<int>(x2), static_cast<int>(x3));
+	buffer.maxx = max(static_cast<int>(x1), static_cast<int>(x2), static_cast<int>(x3));
+	buffer.miny = min(static_cast<int>(y1), static_cast<int>(y2), static_cast<int>(y3));
+	buffer.maxy = max(static_cast<int>(y1), static_cast<int>(y2), static_cast<int>(y3));
 #pragma endregion
 
 #pragma region Obcinanie
@@ -58,8 +58,8 @@ void Rasterizer::DrawTriangle(Triangle & triangle)
 	float y23 = y2 - y3;
 	float y31 = y3 - y1;
 
-	float lambda1den = 1.0 / (-y23 * x31 + x23 * y31);
-	float lambda2den = 1.0 / (y31 * x23 - x31 * y23);
+	float lambda1den = 1.0f / (-y23 * x31 + x23 * y31);
+	float lambda2den = 1.0f / (y31 * x23 - x31 * y23);
 #pragma endregion
 
 #pragma region "Top-left"
