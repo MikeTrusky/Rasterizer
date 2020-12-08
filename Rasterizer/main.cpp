@@ -3,6 +3,10 @@
 #include "TGABuffer.h"
 #include "Color.h"
 #include "Triangle.h"
+#include "Cube.h"
+#include "Cone.h"
+#include "Sphere.h"
+#include "Cylinder.h"
 #include "Helper.h"
 #include "Rasterizer.h"
 #include "VertexProcessor.h"
@@ -13,45 +17,6 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_glfw.h"
-
-void DrawBox(VertexProcessor& vp, Rasterizer& rasterizer, Color first, Color second, Color third, float3 *vertices)
-{
-	Color c_1 = first;
-	Color c_2 = second;
-	Color c_3 = third;
-
-	//Bottom
-	Triangle triangle = Triangle(vp.tr(vertices[0]), vp.tr(vertices[2]), vp.tr(vertices[1]), first, first, first);
-	Triangle triangle2 = Triangle(vp.tr(vertices[3]), vp.tr(vertices[2]), vp.tr(vertices[0]), first, first, first);
-	////Left
-	Triangle triangle3 = Triangle(vp.tr(vertices[7]), vp.tr(vertices[0]), vp.tr(vertices[1]), second, second, second);
-	Triangle triangle4 = Triangle(vp.tr(vertices[4]), vp.tr(vertices[0]), vp.tr(vertices[7]), second, second, second);
-	////Back
-	Triangle triangle5 = Triangle(vp.tr(vertices[4]), vp.tr(vertices[3]), vp.tr(vertices[0]), third, third, third);
-	Triangle triangle6 = Triangle(vp.tr(vertices[5]), vp.tr(vertices[3]), vp.tr(vertices[4]), third, third, third);
-	////Right
-	Triangle triangle7 = Triangle(vp.tr(vertices[3]), vp.tr(vertices[6]), vp.tr(vertices[2]), second, second, second);
-	Triangle triangle8 = Triangle(vp.tr(vertices[5]), vp.tr(vertices[6]), vp.tr(vertices[3]), second, second, second);
-	////Top
-	Triangle triangle9 = Triangle(vp.tr(vertices[4]), vp.tr(vertices[6]), vp.tr(vertices[5]), first, first, first);
-	Triangle triangle10 = Triangle(vp.tr(vertices[7]), vp.tr(vertices[6]), vp.tr(vertices[4]), first, first, first);
-	//////Front
-	Triangle triangle11 = Triangle(vp.tr(vertices[6]), vp.tr(vertices[2]), vp.tr(vertices[1]), third, third, third);
-	Triangle triangle12 = Triangle(vp.tr(vertices[7]), vp.tr(vertices[6]), vp.tr(vertices[1]), third, third, third);
-
-	rasterizer.DrawTriangle(triangle);
-	rasterizer.DrawTriangle(triangle2);
-	rasterizer.DrawTriangle(triangle3);
-	rasterizer.DrawTriangle(triangle4);
-	rasterizer.DrawTriangle(triangle5);
-	rasterizer.DrawTriangle(triangle6);
-	rasterizer.DrawTriangle(triangle7);
-	rasterizer.DrawTriangle(triangle8);
-	rasterizer.DrawTriangle(triangle9);
-	rasterizer.DrawTriangle(triangle10);
-	rasterizer.DrawTriangle(triangle11);
-	rasterizer.DrawTriangle(triangle12);
-}
 
 int main()
 {
@@ -96,9 +61,9 @@ int main()
 	vp.multByTranslation(float3(-3.0f, 0, -2.0f));
 	vp.transform();
 
-	/*DrawBox(vp, rasterizer, Color(0, 255, 0), Color(0, 0, 255), Color(255, 0, 0));*/
-
+#pragma region Save to file
 	/*colorBuffer.saveFile("outputFile.tga");*/
+#pragma endregion
 
 #pragma region GLFW stuff
 
@@ -130,7 +95,7 @@ int main()
 
 	float boxPosition[3] = { 0.0f, 0.0f, 0.0f };
 	float boxScale[3] = { 1.0f, 1.0f, 1.0f };
-	float angleX, angleY, angleZ = 0.0f;
+	float angleX = 0.0f, angleY = 0.0f, angleZ = 0.0f;
 
 	float eye[3] = { 0, 1, 7 };
 	float center[3] = { 0, 0, 0 };
@@ -184,7 +149,20 @@ int main()
 		vp.multByTranslation(float3(boxPosition[0], boxPosition[1], boxPosition[2]));
 		vp.transform();
 
-		DrawBox(vp, rasterizer, Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255), vertices);
+		/*Triangle triang = Triangle();
+		triang.draw(rasterizer, vp);*/
+
+		/*Cube cube = Cube(8, 12);
+		cube.draw(rasterizer, vp);*/
+
+		/*Cone cone = Cone(7);
+		cone.draw(rasterizer, vp);*/
+
+		/*Sphere sphere = Sphere(10, 15);
+		sphere.draw(rasterizer, vp);*/
+
+		Cylinder cylinder = Cylinder(15, 8);
+		cylinder.draw(rasterizer, vp);
 
 		glDrawPixels(colorBuffer.w, colorBuffer.h, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, colorBuffer.frame);
 

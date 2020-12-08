@@ -2,7 +2,7 @@
 
 uint32_t Color::ToUint32_t() const
 {
-	return ((uint32_t)A << 24) | ((uint32_t)R << 16) | ((uint32_t)G << 8) | (uint32_t)B;
+	return ((uint32_t)A << 24) | ((uint32_t)B << 16) | ((uint32_t)G << 8) | (uint32_t)R;
 }
 
 Color Color::operator+(const Color & c) const

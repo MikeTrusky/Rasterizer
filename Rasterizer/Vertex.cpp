@@ -1,9 +1,13 @@
 #include "Vertex.h"
 
-Vertex::Vertex(float v1, float v2, float v3)
+Vertex::Vertex(float vx, float vy, float vz)
 {
+	position = float3(vx, vy, vz);
+	color = Color(255, 255, 255);
 }
 
-Vertex::Vertex(float v1, float v2, float v3, float c1, float c2, float c3)
+Vertex::Vertex(float vx, float vy, float vz, Color color)
 {
+	position = float3(vx, vy, vz);
+	this->color = color;
 }

@@ -1,5 +1,8 @@
 #pragma once
-class Sphere
+#include "Mesh.h"
+class Sphere : public Mesh
 {
+public:
+	Sphere() = default;
+	Sphere(int vert, int horiz);
 };
-

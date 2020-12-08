@@ -1,14 +1,17 @@
 #pragma once
 #include "Helper.h"
+#include "Color.h"
 
 class Vertex
 {
 private:
 
 public:
-	Vertex(float v1, float v2, float v3);
-	Vertex(float v1, float v2, float v3, float c1, float c2, float c3);
+	Vertex() = default;
+	Vertex(float vx, float vy, float vz);
+	Vertex(float vx, float vy, float vz, Color color);
 	float3 position;
 	float3 normal;
+	Color color;
 };
 

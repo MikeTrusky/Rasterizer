@@ -105,3 +105,15 @@ inline float4 mul(float4x4 matrix, float4 value)
 	return valueNew;
 }
 #pragma endregion
+
+struct int3
+{
+	int x, y, z;
+	int3() = default;
+	int3(int x, int y, int z) : x(x), y(y), z(z) {};
+	int3(int value) : x(value), y(value), z(value) {};
+};
+
+#pragma region int3 - funkcje
+inline std::ostream& operator << (std::ostream& os, const int3& vec) { os << "x: " << vec.x << " y: " << vec.y << " z: " << vec.z << "\n"; return os; }
+#pragma endregion
