@@ -1,6 +1,6 @@
 #pragma once
-#include "Buffer.h"
-#include "Helper.h"
+#include "Buffer/Buffer.h"
+#include "MathLibrary/Helper.h"
 
 class Triangle;
 

@@ -1,8 +1,8 @@
 #pragma once
-#include "Vertex.h"
-#include "Rasterizer.h"
-#include "VertexProcessor.h"
-#include "Helper.h"
+#include "../Vertex.h"
+#include "../Rasterizer.h"
+#include "../Processors/VertexProcessor.h"
+#include "../MathLibrary/Helper.h"
 
 class Mesh
 {

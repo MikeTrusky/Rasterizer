@@ -1,5 +1,5 @@
 #include "Rasterizer.h"
-#include "Triangle.h"
+#include "Meshes/Triangle.h"
 
 inline int min(int a, int b, int c)
 {

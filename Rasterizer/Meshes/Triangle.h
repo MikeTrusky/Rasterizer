@@ -1,6 +1,6 @@
 #pragma once
-#include "Helper.h"
-#include "Color.h"
+#include "../MathLibrary/Helper.h"
+#include "../Color.h"
 #include "Mesh.h"
 
 class Triangle : public Mesh

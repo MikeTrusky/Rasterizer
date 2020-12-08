@@ -1,5 +1,5 @@
 #pragma once
-#include "Helper.h"
+#include "MathLibrary/Helper.h"
 #include "Color.h"
 
 class Vertex

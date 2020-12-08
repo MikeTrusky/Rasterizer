@@ -131,12 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Box.cpp" />
-    <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Buffer\Buffer.cpp" />
     <ClCompile Include="Color.cpp" />
-    <ClCompile Include="Cone.cpp" />
-    <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -144,23 +140,22 @@
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Meshes\Cone.cpp" />
+    <ClCompile Include="Meshes\Cube.cpp" />
+    <ClCompile Include="Meshes\Cylinder.cpp" />
+    <ClCompile Include="Meshes\Mesh.cpp" />
+    <ClCompile Include="Meshes\Sphere.cpp" />
+    <ClCompile Include="Meshes\Torus.cpp" />
+    <ClCompile Include="Meshes\Triangle.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
-    <ClCompile Include="Sphere.cpp" />
-    <ClCompile Include="TGABuffer.cpp" />
-    <ClCompile Include="Torus.cpp" />
-    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Buffer\TGABuffer.cpp" />
     <ClCompile Include="Vertex.cpp" />
-    <ClCompile Include="VertexProcessor.cpp" />
+    <ClCompile Include="Processors\VertexProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Box.h" />
-    <ClInclude Include="Buffer.h" />
+    <ClInclude Include="Buffer\Buffer.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="Cone.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="Cylinder.h" />
-    <ClInclude Include="Helper.h" />
+    <ClInclude Include="MathLibrary\Helper.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_glfw.h" />
@@ -169,14 +164,17 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Meshes\Cone.h" />
+    <ClInclude Include="Meshes\Cube.h" />
+    <ClInclude Include="Meshes\Cylinder.h" />
+    <ClInclude Include="Meshes\Mesh.h" />
+    <ClInclude Include="Meshes\Sphere.h" />
+    <ClInclude Include="Meshes\Torus.h" />
+    <ClInclude Include="Meshes\Triangle.h" />
     <ClInclude Include="Rasterizer.h" />
-    <ClInclude Include="Sphere.h" />
-    <ClInclude Include="TGABuffer.h" />
-    <ClInclude Include="Torus.h" />
-    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Buffer\TGABuffer.h" />
     <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VertexProcessor.h" />
+    <ClInclude Include="Processors\VertexProcessor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

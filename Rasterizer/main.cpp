@@ -1,15 +1,15 @@
 #include <iostream>
 #include <vector>
-#include "TGABuffer.h"
+#include "Buffer/TGABuffer.h"
 #include "Color.h"
-#include "Triangle.h"
-#include "Cube.h"
-#include "Cone.h"
-#include "Sphere.h"
-#include "Cylinder.h"
-#include "Helper.h"
+#include "Meshes/Triangle.h"
+#include "Meshes/Cube.h"
+#include "Meshes/Cone.h"
+#include "Meshes/Sphere.h"
+#include "Meshes/Cylinder.h"
+#include "MathLibrary/Helper.h"
 #include "Rasterizer.h"
-#include "VertexProcessor.h"
+#include "Processors/VertexProcessor.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -23,17 +23,6 @@ int main()
 	TGABuffer colorBuffer = TGABuffer(800, 800);
 	Rasterizer rasterizer = Rasterizer(colorBuffer);
 	VertexProcessor vp = VertexProcessor();
-
-	float3 vertex_1(-0.5f, -0.5f, 0.5f);
-	float3 vertex_2(-0.5f, -0.5f, -0.5f);
-	float3 vertex_3(0.5f, -0.5f, -0.5f);
-	float3 vertex_4(0.5f, -0.5f, 0.5f);
-	float3 vertex_5(-0.5f, 0.5f, 0.5f);
-	float3 vertex_6(0.5f, 0.5f, 0.5f);
-	float3 vertex_7(0.5f, 0.5f, -0.5f);
-	float3 vertex_8(-0.5f, 0.5f, -0.5f);
-
-	float3 vertices[8] = { vertex_1, vertex_2, vertex_3, vertex_4, vertex_5, vertex_6, vertex_7, vertex_8 };
 	
 	vp.setPerspective(60.0f, 1.0f/1.0f, 0.1f, 1000.0f);
 	vp.setIdentityView();
@@ -44,22 +33,6 @@ int main()
 	Color color(0, 0, 0, 0);
 	colorBuffer.clearColor(color);
 	colorBuffer.clearDepth();
-
-	//Prawa kostka
-	/*vp.setIdentity();
-	vp.multByScale(float3(1.5f, 1.5f, 5.0f));
-	vp.multByRotation(-45.0f, float3(0, 1, 0));
-	vp.multByTranslation(float3(3.0f, 0, -2.0f));
-	vp.transform();
-
-	DrawBox(vp, rasterizer, Color(255, 0, 0), Color(0, 255, 0), Color(0, 0, 255));*/
-
-	//Lewa kostka
-	vp.setIdentity();
-	vp.multByScale(float3(2.0f, 2.0f, 3.0f));
-	vp.multByRotation(45.0f, float3(0, 1, 0));
-	vp.multByTranslation(float3(-3.0f, 0, -2.0f));
-	vp.transform();
 
 #pragma region Save to file
 	/*colorBuffer.saveFile("outputFile.tga");*/

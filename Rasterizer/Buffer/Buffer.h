@@ -1,6 +1,6 @@
 #pragma once
 #include <cstdint>
-#include "Color.h"
+#include "../Color.h"
 
 class Buffer
 {
