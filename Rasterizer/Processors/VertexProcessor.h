@@ -19,6 +19,5 @@ public:
 	void transform(void);
 
 	float3 tr(const float3 &v);
-	float3 lt(const float3 &, const float3 &, const float3 &);
+	float3 tr_obj2view(const float3 &v, float w);
 };
-

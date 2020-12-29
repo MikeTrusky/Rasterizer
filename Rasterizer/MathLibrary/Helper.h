@@ -2,7 +2,9 @@
 #include <vector>
 #include <iostream>
 
-#define PI 3.1415926
+#define PI 3.1415926f
+
+//inline float operator * (float &value, float3 &vec) {return }
 
 struct float3
 {
@@ -29,6 +31,9 @@ inline float dot(float3 &vecA, float3 &vecB) { return vecA.x * vecB.x + vecA.y *
 inline float3 operator + (float3 &vecA, float3 &vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
 inline float3 operator - (float3 &vecA, float3 &vecB) { return float3(vecA.x - vecB.x, vecA.y - vecB.y, vecA.z - vecB.z); }
 inline float3 operator * (float3 &vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
+inline float3 operator * (float3 &vec, float3 &vecB) { return float3(vec.x * vecB.x, vec.y * vecB.y, vec.z * vecB.z); }
+inline float3 operator += (float3 &vecA, float3 &vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
+inline float3 mul(float3 &vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
 inline std::ostream& operator << (std::ostream& os, const float3& vec) { os << "x: " << vec.x << " y: " << vec.y << " z: " << vec.z << "\n"; return os; }
 #pragma endregion
 
@@ -67,13 +72,13 @@ struct float4x4
 {
 	float4 matrix[4] = { {float4(0,0,0,0)}, {float4(0,0,0,0)}, {float4(0,0,0,0)}, {float4(0,0,0,0)} };
 	float4x4() = default;
-	float4x4(float4 x, float4 y, float4 z, float4 w)
-	{
-		matrix[0] = x;
-		matrix[1] = y;
-		matrix[2] = z;
-		matrix[3] = w;
-	}
+	float4x4(float4 x, float4 y, float4 z, float4 w) : matrix{ x, y, z, w } {};
+	//{
+	//	matrix[0] = x;
+	//	matrix[1] = y;
+	//	matrix[2] = z;
+	//	matrix[3] = w;
+	//}
 	float4 operator[] (int i) { return matrix[i]; }
 };
 
@@ -117,3 +122,25 @@ struct int3
 #pragma region int3 - funkcje
 inline std::ostream& operator << (std::ostream& os, const int3& vec) { os << "x: " << vec.x << " y: " << vec.y << " z: " << vec.z << "\n"; return os; }
 #pragma endregion
+
+inline int min(int a, int b) { return a < b ? a : b; }
+
+inline int max(int a, int b) { return a < b ? b : a; }
+
+inline float min(float a, float b) { return a < b ? a : b; }
+
+inline float max(float a, float b) { return a < b ? b : a; }
+
+inline float saturate(float val) { return min(max(val, 0.0f), 1.0f); }
+
+inline float3 saturate(float3 v) { return float3(saturate(v.x), saturate(v.y), saturate(v.z)); }
+
+inline float3 reflect(float3 I,float3 N)
+{
+	// i - 2 * n * dot(i, n)
+	float dotResult = dot(I, N);
+	float3 result = N * dotResult;
+	float3 result_2 = result * 2.0f; //-2.0f
+	float3 result_3 = I - result_2;
+	return result_3;
+}

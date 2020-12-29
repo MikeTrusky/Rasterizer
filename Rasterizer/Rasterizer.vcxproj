@@ -133,6 +133,8 @@
   <ItemGroup>
     <ClCompile Include="Buffer\Buffer.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Light\DirectionalLight.cpp" />
+    <ClCompile Include="Light\PointLight.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -155,6 +157,9 @@
   <ItemGroup>
     <ClInclude Include="Buffer\Buffer.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Light\DirectionalLight.h" />
+    <ClInclude Include="Light\PointLight.h" />
+    <ClInclude Include="Light\Light.h" />
     <ClInclude Include="MathLibrary\Helper.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

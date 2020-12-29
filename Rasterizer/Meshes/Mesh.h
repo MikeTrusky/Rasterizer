@@ -3,6 +3,7 @@
 #include "../Rasterizer.h"
 #include "../Processors/VertexProcessor.h"
 #include "../MathLibrary/Helper.h"
+#include "../Light/Light.h"
 
 class Mesh
 {
@@ -17,7 +18,7 @@ public:
 	int3 *indices;
 
 	void draw(Rasterizer &rasterizer, VertexProcessor &vp);
+	void draw(Rasterizer &rasterizer, VertexProcessor &vp, Light &l);
 	void SetArrays(int verticesSize, int trianglesSize);
 	void makeNormals();
 };
-

@@ -13,6 +13,7 @@ Cube::Cube()
 	vertices[5].position = float3(0.5f, 0.5f, 0.5f);
 	vertices[6].position = float3(0.5f, 0.5f, -0.5f);
 	vertices[7].position = float3(-0.5f, 0.5f, -0.5f);
+
 	//Front
 	indices[0] = int3(0, 4, 3);
 	indices[1] = int3(4, 5, 3);

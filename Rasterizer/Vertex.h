@@ -14,4 +14,3 @@ public:
 	float3 normal;
 	Color color;
 };
-

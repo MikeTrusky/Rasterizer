@@ -7,4 +7,3 @@ public:
 	Cylinder() = default;
 	Cylinder(int v, int h);
 };
-

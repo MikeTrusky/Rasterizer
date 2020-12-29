@@ -9,7 +9,7 @@ void VertexProcessor::setPerspective(float fovy, float aspect, float near, float
 	view2proj.matrix[0] = float4(f / aspect, 0, 0, 0);
 	view2proj.matrix[1] = float4(0, f, 0, 0);
 	view2proj.matrix[2] = float4(0, 0, (far + near) / (near - far), 2 * far * near / (near - far));
-	view2proj.matrix[3] = float4(0, 0, -1, 0);
+	view2proj.matrix[3] = float4(0, 0, -1, 0); 
 }
 
 void VertexProcessor::setLookAt(float3 eye, float3 center, float3 up)
@@ -122,7 +122,16 @@ float3 VertexProcessor::tr(const float3 &v)
 	}
 }
 
-float3 VertexProcessor::lt(const float3 &, const float3 &, const float3 &)
+float3 VertexProcessor::tr_obj2view(const float3 & v, float w)
 {
-	return float3();
+	float4 r = mul(obj2view, float4(v.x, v.y, v.z, w));
+
+	if (w != 0)
+	{
+		return float3(r.x / r.w, r.y / r.w, r.z / r.w);
+	}
+	else
+	{
+		return float3(r.x, r.y, r.z);
+	}
 }

@@ -11,15 +11,15 @@ inline int max(int a, int b, int c)
 	return a < b ? (b < c ? c : b) : (a < c ? c : a);
 }
 
-inline int min(int a, int b)
-{
-	return a < b ? a : b;
-}
-
-inline int max(int a, int b)
-{
-	return a < b ? b : a;
-}
+//inline int min(int a, int b)
+//{
+//	return a < b ? a : b;
+//}
+//
+//inline int max(int a, int b)
+//{
+//	return a < b ? b : a;
+//}
 
 void Rasterizer::DrawTriangle(Triangle & triangle)
 {
@@ -155,9 +155,9 @@ void Rasterizer::DrawTriangle(float3 v1, float3 v2, float3 v3, Color c1, Color c
 	bool topleft3 = (y31 < 0 || (y31 == 0 && x31 > 0));
 #pragma endregion
 
-	for (int x = buffer.minx; x < buffer.maxx; x++)
+	for (int x = buffer.minx; x <= buffer.maxx; x++)
 	{
-		for (int y = buffer.miny; y < buffer.maxy; y++)
+		for (int y = buffer.miny; y <= buffer.maxy; y++)
 		{
 			if ((x12 * (y - y1) - y12 * (x - x1) > 0 && !topleft1 || x12 * (y - y1) - y12 * (x - x1) >= 0 && topleft1) &&
 				(x23 * (y - y2) - y23 * (x - x2) > 0 && !topleft2 || x23 * (y - y2) - y23 * (x - x2) >= 0 && topleft2) &&
@@ -167,7 +167,6 @@ void Rasterizer::DrawTriangle(float3 v1, float3 v2, float3 v3, Color c1, Color c
 				float lambda2 = (y31 * (x - x3) - x31 * (y - y3)) * lambda2den;
 				float lambda3 = 1 - lambda1 - lambda2;
 
-				//float depth = triangle.TriangleVertices[0].z * lambda1 + triangle.TriangleVertices[1].z * lambda2 + triangle.TriangleVertices[2].z * lambda3;
 				float depth = v1.z * lambda1 + v2.z * lambda2 + v3.z * lambda3;
 
 				if (depth < buffer.getDepth(x, y))
