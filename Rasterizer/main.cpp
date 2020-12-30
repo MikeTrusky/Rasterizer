@@ -262,12 +262,12 @@ int main()
 		vp.setIdentity();
 		vp.multByTranslation(float3(0.0f, 2.0f, 0.0f));
 		vp.transform();
-		sphere.draw(rasterizer, vp, pLight);
+		sphere.draw(rasterizer, vp, pLight, true);
 
 		vp.setIdentity();
 		vp.multByTranslation(float3(0.0f, -2.0f, 0.0f));
 		vp.transform();
-		sphere.draw(rasterizer, vp, pLight);
+		sphere.draw(rasterizer, vp, pLight, true);
 #pragma endregion
 
 #pragma region Cylinder
@@ -292,7 +292,7 @@ int main()
 		glfwPollEvents();
 	}
 
-	/*colorBuffer.saveFile("outputFile.tga");*/
+	colorBuffer.saveFile("outputFile.tga");
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui::DestroyContext();

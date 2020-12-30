@@ -122,6 +122,20 @@ float3 VertexProcessor::tr(const float3 &v)
 	}
 }
 
+Vertex VertexProcessor::tr(const Vertex & v)
+{
+	float4 r = mul(obj2proj, float4(v.position.x, v.position.y, v.position.z, 1));
+
+	if (r.w != 0)
+	{
+		return Vertex(r.x / r.w, r.y / r.w, r.z / r.w, v.normal.x, v.normal.y, v.normal.z);
+	}
+	else
+	{
+		return Vertex(r.x, r.y, r.z, v.normal.x, v.normal.y, v.normal.z);
+	}
+}
+
 float3 VertexProcessor::tr_obj2view(const float3 & v, float w)
 {
 	float4 r = mul(obj2view, float4(v.x, v.y, v.z, w));

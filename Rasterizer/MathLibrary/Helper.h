@@ -4,8 +4,6 @@
 
 #define PI 3.1415926f
 
-//inline float operator * (float &value, float3 &vec) {return }
-
 struct float3
 {
 	float x, y, z;

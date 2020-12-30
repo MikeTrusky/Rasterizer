@@ -30,6 +30,22 @@ void Mesh::draw(Rasterizer & rasterizer, VertexProcessor & vp, Light &l)
 	}
 }
 
+void Mesh::draw(Rasterizer & rasterizer, VertexProcessor & vp, Light &l, bool perPixel)
+{
+	Vertex *processed = new Vertex[verticesSize];
+	//std::cout << " processed vert normal before " << processed[0].normal << std::endl;
+	//std::cout << " vert normal before: " << vertices[0].normal << std::endl;
+	for (int i = 0; i < verticesSize; ++i)
+		processed[i] = vp.tr(vertices[i]);
+
+	//std::cout << " vert P normal after: " << processed[0].normal << std::endl << std::endl;
+	for (int i = 0; i < trianglesSize; ++i)
+	{
+		rasterizer.DrawTriangle(processed[indices[i].x], processed[indices[i].y], processed[indices[i].z], l, vp);
+	}
+	delete[] processed;
+}
+
 void Mesh::SetArrays(int verticesSize, int trianglesSize)
 {
 	this->verticesSize = verticesSize;

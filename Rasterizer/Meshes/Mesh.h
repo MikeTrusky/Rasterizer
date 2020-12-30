@@ -19,6 +19,7 @@ public:
 
 	void draw(Rasterizer &rasterizer, VertexProcessor &vp);
 	void draw(Rasterizer &rasterizer, VertexProcessor &vp, Light &l);
+	void draw(Rasterizer &rasterizer, VertexProcessor &vp, Light &l, bool perPixel);
 	void SetArrays(int verticesSize, int trianglesSize);
 	void makeNormals();
 };
