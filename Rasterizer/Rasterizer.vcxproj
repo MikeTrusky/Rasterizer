@@ -141,6 +141,7 @@
     <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Light\SpotLight.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Meshes\Cone.cpp" />
     <ClCompile Include="Meshes\Cube.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Light\DirectionalLight.h" />
     <ClInclude Include="Light\PointLight.h" />
     <ClInclude Include="Light\Light.h" />
+    <ClInclude Include="Light\SpotLight.h" />
     <ClInclude Include="MathLibrary\Helper.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

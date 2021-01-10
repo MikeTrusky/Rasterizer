@@ -13,6 +13,7 @@
 
 #include "Light/DirectionalLight.h"
 #include "Light/PointLight.h"
+#include "Light/SpotLight.h"
 
 #include "MathLibrary/Helper.h"
 
@@ -75,6 +76,7 @@ int main()
 
 #pragma endregion
 
+#pragma region ObjectsVariables
 	float cubePosition[3] = { 0.0, 0.0f, 0.0f };
 	float cubeScale[3] = { 1.0f, 1.0f, 1.0f };
 	float cubeAngleX = 0.0f, cubeAngleY = 0.0f, cubeAngleZ = 0.0f;
@@ -108,12 +110,22 @@ int main()
 	float pointLightSpecular[3] = { 1, 0, 0 };
 	float pointShine = 10;
 
+	float spotLightPosition[3] = { 0, 0, 0 };
+	float spotLightAmbient[3] = { 0, 0.6f, 0 };
+	float spotLightDiffuse[3] = { 0, 0, 0.6f };
+	float spotLightSpecular[3] = { 1, 0, 0 };
+	float spotShine = 10;
+	float spotCutoff = 0.28;
+	float spotOuterCutoff = 0.38;
+	float spotLightDirection[3] = { 0, 1, 0 };
+
 	float eye[3] = { 0, 1, 15 };
 	float center[3] = { 0, 0, -1 };
 	float near = 0.001f;
 	float far = 100.0f;
 	float fov = 45.0f;
 	float aspect = 1.0f;
+#pragma endregion
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -191,6 +203,16 @@ int main()
 		ImGui::SliderFloat("Shine", &pointShine, 0.0f, 100.0f);
 		ImGui::End();
 
+		ImGui::Begin("Spot Light transformations");
+		ImGui::SliderFloat3("Position", spotLightPosition, -50.0f, 50.0f);
+		ImGui::SliderFloat3("Ambient", spotLightAmbient, 0.0f, 1.0f);
+		ImGui::SliderFloat3("Diffuse", spotLightDiffuse, 0.0f, 1.0f);
+		ImGui::SliderFloat3("Specular", spotLightSpecular, 0.0f, 1.0f);
+		ImGui::SliderFloat("Shine", &spotShine, 0.0f, 100.0f);
+		ImGui::SliderFloat("Cutoff", &spotCutoff, 0.0f, PI/2);
+		ImGui::SliderFloat3("Direction", spotLightDirection, -1.0f, 1.0f);
+		ImGui::End();
+
 #pragma endregion
 
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -201,11 +223,19 @@ int main()
 		vp.setLookAt(float3(eye[0], eye[1], eye[2]), float3(center[0], center[1], center[2]), float3(0, 1, 0));
 		vp.transform();
 
-		PointLight pLight = PointLight(float3(pointLightPosition[0], pointLightPosition[1], pointLightPosition[2]),
+		/*PointLight pLight = PointLight(float3(pointLightPosition[0], pointLightPosition[1], pointLightPosition[2]),
 			float3(pointLightAmbient[0], pointLightAmbient[1], pointLightAmbient[2]),
 			float3(pointLightDiffuse[0], pointLightDiffuse[1], pointLightDiffuse[2]),
 			float3(pointLightSpecular[0], pointLightSpecular[1], pointLightSpecular[2]),
-			float(pointShine));
+			float(pointShine));*/
+
+		SpotLight pLight = SpotLight(float3(spotLightPosition[0], spotLightPosition[1], spotLightPosition[2]),
+			float3(spotLightAmbient[0], spotLightAmbient[1], spotLightAmbient[2]),
+			float3(spotLightDiffuse[0], spotLightDiffuse[1], spotLightDiffuse[2]),
+			float3(spotLightSpecular[0], spotLightSpecular[1], spotLightSpecular[2]),
+			float(spotShine),
+			float(cos(spotCutoff)),
+			float3(spotLightDirection[0], spotLightDirection[1], spotLightDirection[3]));
 
 		/*DirectionalLight pLight = DirectionalLight(float3(dirLightPosition[0], dirLightPosition[1], dirLightPosition[2]),
 			float3(dirLightAmbient[0], dirLightAmbient[1], dirLightAmbient[2]),
@@ -224,7 +254,19 @@ int main()
 
 		Cube cube = Cube();
 		cube.makeNormals();
-		cube.draw(rasterizer, vp, pLight);*/
+		cube.draw(rasterizer, vp, pLight, true);*/
+
+		/*vp.setIdentity();
+		vp.multByScale(float3(cubeScale[0], cubeScale[1], cubeScale[2]));
+		vp.multByRotation(-45.0f, float3(0, 1, 0));
+		vp.multByRotation(cubeAngleX, float3(1, 0, 0));
+		vp.multByRotation(cubeAngleZ, float3(0, 0, 1));
+		vp.multByTranslation(float3(3.0f, 2.0f, 0.0f));
+		vp.transform();*/
+
+		//Cube cube = Cube();
+		//cube.makeNormals();
+		//cube.draw(rasterizer, vp, pLight, true);
 #pragma endregion
 
 #pragma region Cone
@@ -252,15 +294,20 @@ int main()
 
 		Sphere sphere = Sphere(sphereVerticalDivisions, sphereHorizontalDivisions);
 		sphere.makeNormals();
-		sphere.draw(rasterizer, vp, pLight);
+		sphere.draw(rasterizer, vp, pLight, true);
 
 		vp.setIdentity();
 		vp.multByTranslation(float3(3.0f, 0.0f, 0.0f));
 		vp.transform();
-		sphere.draw(rasterizer, vp, pLight);
+		sphere.draw(rasterizer, vp, pLight, true);
 
 		vp.setIdentity();
 		vp.multByTranslation(float3(0.0f, 2.0f, 0.0f));
+		vp.transform();
+		sphere.draw(rasterizer, vp, pLight, true);
+
+		vp.setIdentity();
+		vp.multByTranslation(float3(2.0f, 2.0f, 0.0f));
 		vp.transform();
 		sphere.draw(rasterizer, vp, pLight, true);
 
