@@ -21,5 +21,5 @@ public:
 
 	float3 tr(const float3 &v);
 	Vertex tr(const Vertex &v);
-	float3 tr_obj2view(const float3 &v, float w);
+	float3 tr_obj2view(const float3 &v, float w, bool spotLight);
 };

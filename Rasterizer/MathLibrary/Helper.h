@@ -24,14 +24,14 @@ inline float3 &normalize(float3 &vec) {
 	}
 	return vec;
 }
-inline float3 cross(float3 &vecA, float3 &vecB) { return float3(vecA.y * vecB.z - vecA.z * vecB.y, vecA.z * vecB.x - vecA.x * vecB.z, vecA.x * vecB.y - vecA.y * vecB.x); }
-inline float dot(float3 &vecA, float3 &vecB) { return vecA.x * vecB.x + vecA.y * vecB.y + vecA.z * vecB.z; }
-inline float3 operator + (float3 &vecA, float3 &vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
-inline float3 operator - (float3 &vecA, float3 &vecB) { return float3(vecA.x - vecB.x, vecA.y - vecB.y, vecA.z - vecB.z); }
-inline float3 operator * (float3 &vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
-inline float3 operator * (float3 &vec, float3 &vecB) { return float3(vec.x * vecB.x, vec.y * vecB.y, vec.z * vecB.z); }
-inline float3 operator += (float3 &vecA, float3 &vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
-inline float3 mul(float3 &vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
+inline float3 cross(float3 vecA, float3 vecB) { return float3(vecA.y * vecB.z - vecA.z * vecB.y, vecA.z * vecB.x - vecA.x * vecB.z, vecA.x * vecB.y - vecA.y * vecB.x); }
+inline float dot(float3 vecA, float3 vecB) { return vecA.x * vecB.x + vecA.y * vecB.y + vecA.z * vecB.z; }
+inline float3 operator + (float3 vecA, float3 vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
+inline float3 operator - (float3 vecA, float3 vecB) { return float3(vecA.x - vecB.x, vecA.y - vecB.y, vecA.z - vecB.z); }
+inline float3 operator * (float3 vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
+inline float3 operator * (float3 vec, float3 vecB) { return float3(vec.x * vecB.x, vec.y * vecB.y, vec.z * vecB.z); }
+inline float3 operator += (float3 vecA, float3 vecB) { return float3(vecA.x + vecB.x, vecA.y + vecB.y, vecA.z + vecB.z); }
+inline float3 mul(float3 vec, float value) { return float3(vec.x * value, vec.y * value, vec.z * value); }
 inline std::ostream& operator << (std::ostream& os, const float3& vec) { os << "x: " << vec.x << " y: " << vec.y << " z: " << vec.z << "\n"; return os; }
 #pragma endregion
 

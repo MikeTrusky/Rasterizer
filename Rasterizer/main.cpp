@@ -44,6 +44,10 @@ int main()
 	colorBuffer.clearColor(color);
 	colorBuffer.clearDepth();
 
+	float3 vecToTest(0, 0, 0);
+	normalize(vecToTest);
+	std::cout << vecToTest << std::endl;
+
 #pragma region Save to file
 	/*colorBuffer.saveFile("outputFile.tga");*/
 #pragma endregion
@@ -98,7 +102,7 @@ int main()
 	int cylinderVerticalDivisions = 15;
 	int cylinderHorizontalDivisions = 8;
 
-	float dirLightPosition[3] = { 0, 1, 0 };
+	float dirLightPosition[3] = { 0, 0, 1 };
 	float dirLightAmbient[3] = { 0.1f, 0.1f, 0.1f };
 	float dirLightDiffuse[3] = { 0.0f, 0.0f, 1.0f };
 	float dirLightSpecular[3] = { 1, 1, 1 };
@@ -110,17 +114,16 @@ int main()
 	float pointLightSpecular[3] = { 1, 0, 0 };
 	float pointShine = 10;
 
-	float spotLightPosition[3] = { 0, 0, 0 };
+	float spotLightPosition[3] = { 0, 0, -2 };
 	float spotLightAmbient[3] = { 0, 0.6f, 0 };
 	float spotLightDiffuse[3] = { 0, 0, 0.6f };
 	float spotLightSpecular[3] = { 1, 0, 0 };
 	float spotShine = 10;
-	float spotCutoff = 0.28;
-	float spotOuterCutoff = 0.38;
-	float spotLightDirection[3] = { 0, 1, 0 };
+	float spotCutoff = 5;
+	float spotLightDirection[3] = { 0, 0, -1 };
 
-	float eye[3] = { 0, 1, 15 };
-	float center[3] = { 0, 0, -1 };
+	float eye[3] = { 0, 0, 15 };
+	float center[3] = { 0, 0, 0 };
 	float near = 0.001f;
 	float far = 100.0f;
 	float fov = 45.0f;
@@ -209,8 +212,8 @@ int main()
 		ImGui::SliderFloat3("Diffuse", spotLightDiffuse, 0.0f, 1.0f);
 		ImGui::SliderFloat3("Specular", spotLightSpecular, 0.0f, 1.0f);
 		ImGui::SliderFloat("Shine", &spotShine, 0.0f, 100.0f);
-		ImGui::SliderFloat("Cutoff", &spotCutoff, 0.0f, PI/2);
-		ImGui::SliderFloat3("Direction", spotLightDirection, -1.0f, 1.0f);
+		ImGui::SliderFloat("SpotAngle - degrees", &spotCutoff, 0.0f, 30);
+		ImGui::SliderFloat3("Direction", spotLightDirection, -0.1f, 0.1f);
 		ImGui::End();
 
 #pragma endregion
@@ -234,8 +237,8 @@ int main()
 			float3(spotLightDiffuse[0], spotLightDiffuse[1], spotLightDiffuse[2]),
 			float3(spotLightSpecular[0], spotLightSpecular[1], spotLightSpecular[2]),
 			float(spotShine),
-			float(cos(spotCutoff)),
-			float3(spotLightDirection[0], spotLightDirection[1], spotLightDirection[3]));
+			float(cos((spotCutoff * PI/180))),
+			float3(spotLightDirection[0], spotLightDirection[1], spotLightDirection[2]));
 
 		/*DirectionalLight pLight = DirectionalLight(float3(dirLightPosition[0], dirLightPosition[1], dirLightPosition[2]),
 			float3(dirLightAmbient[0], dirLightAmbient[1], dirLightAmbient[2]),
@@ -284,16 +287,17 @@ int main()
 #pragma endregion
 
 #pragma region Sphere
+
+		Sphere sphere = Sphere(sphereVerticalDivisions, sphereHorizontalDivisions);
+		sphere.makeNormals();
+
 		vp.setIdentity();
-		vp.multByScale(float3(sphereScale[0], sphereScale[1], sphereScale[2]));
 		vp.multByRotation(sphereAngleY, float3(0, 1, 0));
 		vp.multByRotation(sphereAngleX, float3(1, 0, 0));
 		vp.multByRotation(sphereAngleZ, float3(0, 0, 1));
 		vp.multByTranslation(float3(-3.0f, 0.0f, 0.0f));
 		vp.transform();
 
-		Sphere sphere = Sphere(sphereVerticalDivisions, sphereHorizontalDivisions);
-		sphere.makeNormals();
 		sphere.draw(rasterizer, vp, pLight, true);
 
 		vp.setIdentity();
@@ -307,28 +311,28 @@ int main()
 		sphere.draw(rasterizer, vp, pLight, true);
 
 		vp.setIdentity();
-		vp.multByTranslation(float3(2.0f, 2.0f, 0.0f));
+		vp.multByTranslation(float3(0.0f, -2.0f, 0.0f));
 		vp.transform();
 		sphere.draw(rasterizer, vp, pLight, true);
 
 		vp.setIdentity();
-		vp.multByTranslation(float3(0.0f, -2.0f, 0.0f));
+		vp.multByTranslation(float3(0.0f, 0.0f, 0.0f));
 		vp.transform();
 		sphere.draw(rasterizer, vp, pLight, true);
 #pragma endregion
 
 #pragma region Cylinder
-		/*vp.setIdentity();
-		vp.multByScale(float3(cylinderScale[0], cylinderScale[1], cylinderScale[2]));
-		vp.multByRotation(cylinderAngleY, float3(0, 1, 0));
-		vp.multByRotation(cylinderAngleX, float3(1, 0, 0));
-		vp.multByRotation(cylinderAngleZ, float3(0, 0, 1));
-		vp.multByTranslation(float3(cylinderPosition[0], cylinderPosition[1], cylinderPosition[2]));
-		vp.transform();
+		//vp.setIdentity();
+		//vp.multByScale(float3(cylinderScale[0], cylinderScale[1], cylinderScale[2]));
+		//vp.multByRotation(cylinderAngleY, float3(0, 1, 0));
+		//vp.multByRotation(cylinderAngleX, float3(1, 0, 0));
+		//vp.multByRotation(cylinderAngleZ, float3(0, 0, 1));
+		//vp.multByTranslation(float3(cylinderPosition[0], cylinderPosition[1], cylinderPosition[2]));
+		//vp.transform();
 
-		Cylinder cylinder = Cylinder(cylinderVerticalDivisions, cylinderHorizontalDivisions);
-		cylinder.makeNormals();
-		cylinder.draw(rasterizer, vp, pLight);*/
+		//Cylinder cylinder = Cylinder(cylinderVerticalDivisions, cylinderHorizontalDivisions);
+		//cylinder.makeNormals();
+		//cylinder.draw(rasterizer, vp, pLight);
 #pragma endregion
 
 		glDrawPixels(colorBuffer.w, colorBuffer.h, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, colorBuffer.frame);

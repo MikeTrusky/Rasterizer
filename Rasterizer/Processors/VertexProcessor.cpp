@@ -9,7 +9,7 @@ void VertexProcessor::setPerspective(float fovy, float aspect, float near, float
 	view2proj.matrix[0] = float4(f / aspect, 0, 0, 0);
 	view2proj.matrix[1] = float4(0, f, 0, 0);
 	view2proj.matrix[2] = float4(0, 0, (far + near) / (near - far), 2 * far * near / (near - far));
-	view2proj.matrix[3] = float4(0, 0, -1, 0); 
+	view2proj.matrix[3] = float4(0, 0, -1, 0);
 }
 
 void VertexProcessor::setLookAt(float3 eye, float3 center, float3 up)
@@ -45,10 +45,10 @@ void VertexProcessor::multByRotation(float a, float3 vec)
 {
 	float s = sin(a * PI / 180), c = cos(a * PI / 180);
 	normalize(vec);
-	float4x4 m(float4(vec.x * vec.x * (1 - c) + c,			vec.y * vec.x * (1 - c) - vec.z * s,	vec.x * vec.z * (1 - c) + vec.y * s,	0),
-			   float4(vec.x * vec.y * (1 - c) + vec.z * s,	vec.y * vec.y * (1 - c) + c,			vec.y * vec.z * (1 - c) - vec.x * s,	0),
-			   float4(vec.x * vec.z * (1 - c) - vec.y * s,	vec.y * vec.z * (1 - c) + vec.x * s,	vec.z * vec.z * (1 - c) + c,			0),
-			   float4(0,									0,										0,										1));
+	float4x4 m(float4(vec.x * vec.x * (1 - c) + c, vec.y * vec.x * (1 - c) - vec.z * s, vec.x * vec.z * (1 - c) + vec.y * s, 0),
+		float4(vec.x * vec.y * (1 - c) + vec.z * s, vec.y * vec.y * (1 - c) + c, vec.y * vec.z * (1 - c) - vec.x * s, 0),
+		float4(vec.x * vec.z * (1 - c) - vec.y * s, vec.y * vec.z * (1 - c) + vec.x * s, vec.z * vec.z * (1 - c) + c, 0),
+		float4(0, 0, 0, 1));
 	obj2world = mul(m, obj2world);
 }
 
@@ -64,9 +64,9 @@ void VertexProcessor::multByTranslation(float3 vec)
 void VertexProcessor::multByScale(float3 vec)
 {
 	float4x4 m(float4(vec.x, 0, 0, 0),
-			   float4(0, vec.y, 0, 0),
-			   float4(0, 0, vec.z, 0),
-			   float4(0, 0, 0, 1));
+		float4(0, vec.y, 0, 0),
+		float4(0, 0, vec.z, 0),
+		float4(0, 0, 0, 1));
 	obj2world = mul(m, obj2world);
 }
 
@@ -136,9 +136,14 @@ Vertex VertexProcessor::tr(const Vertex & v)
 	}
 }
 
-float3 VertexProcessor::tr_obj2view(const float3 & v, float w)
+float3 VertexProcessor::tr_obj2view(const float3 & v, float w, bool spotLight)
 {
-	float4 r = mul(obj2view, float4(v.x, v.y, v.z, w));
+	float4 r;
+
+	if (!spotLight)
+		r = mul(obj2view, float4(v.x, v.y, v.z, w));
+	else if (spotLight)
+		r = mul(world2view, float4(v.x, v.y, v.z, w));
 
 	if (w != 0)
 	{
