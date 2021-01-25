@@ -20,18 +20,30 @@ float3 SpotLight::calculate(Vertex & f, VertexProcessor & vp)
 	float3 specularValue = specular * powf(saturate(dot(R, V)), shine);
 
 	normalize(direction);
-	
+
+	float3 texSample(1, 1, 1);
+
+	if (texture != nullptr)
+	{
+		uint32_t c = texture->frame[int(f.texturePos.x * (texture->w - 1) + 0.5f) + int(f.texturePos.y * (texture->h - 1) + 0.5f) * texture->w];
+
+		float red = ((c >> 16) & 0xff) / 255.0f;
+		float green = ((c >> 8) & 0xff) / 255.0f;
+		float blue = (c & 0xff) / 255.0f;
+		texSample = float3(red, green, blue);
+	}
+
 	float spotFactor = dot(L, direction);
 
 	float3 returnValue = 0.0f;
 
 	if (spotFactor > Cutoff)
 	{
-		returnValue = ambient + diffuseValue + specularValue;
+		returnValue = (texture->calcLight) ? (ambient + diffuseValue) * texSample + specularValue : texSample;
 	}
 	else
 	{
-		returnValue = float3(0.2, 0.2, 0.2);
+		returnValue = (texture->calcLight) ? float3(0.2, 0.2, 0.2) * texSample : texSample;
 	}
 
 	return returnValue;

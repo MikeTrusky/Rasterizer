@@ -22,4 +22,5 @@ public:
 	void draw(Rasterizer &rasterizer, VertexProcessor &vp, Light &l, bool perPixel);
 	void SetArrays(int verticesSize, int trianglesSize);
 	void makeNormals();
+	void makeUV();
 };

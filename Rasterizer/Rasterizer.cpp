@@ -238,7 +238,8 @@ void Rasterizer::DrawTriangle(Vertex &v1, Vertex &v2, Vertex &v3, Light &light, 
 				Vertex f(
 					float3((v1.position.x * lambda1 + v2.position.x * lambda2 + v3.position.x * lambda3), (v1.position.y * lambda1 + v2.position.y * lambda2 + v3.position.y * lambda3), (v1.position.z * lambda1 + v2.position.z * lambda2 + v3.position.z * lambda3)),
 					float3((v1.normal.x * lambda1 + v2.normal.x * lambda2 + v3.normal.x * lambda3), (v1.normal.y * lambda1 + v2.normal.y * lambda2 + v3.normal.y * lambda3), (v1.normal.z * lambda1 + v2.normal.z * lambda2 + v3.normal.z * lambda3)),
-					v1.color
+					v1.color, 
+					float3((v1.texturePos.x * lambda1 + v2.texturePos.x * lambda2 + v3.texturePos.x * lambda3), (v1.texturePos.y * lambda1 + v2.texturePos.y * lambda2 + v3.texturePos.y * lambda3), 0)
 				);
 
 				float3 colorCalculated = light.calculate(f, vp);

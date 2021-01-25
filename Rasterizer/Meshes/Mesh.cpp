@@ -33,12 +33,10 @@ void Mesh::draw(Rasterizer & rasterizer, VertexProcessor & vp, Light &l)
 void Mesh::draw(Rasterizer & rasterizer, VertexProcessor & vp, Light &l, bool perPixel)
 {
 	Vertex *processed = new Vertex[verticesSize];
-	//std::cout << " processed vert normal before " << processed[0].normal << std::endl;
-	//std::cout << " vert normal before: " << vertices[0].normal << std::endl;
+
 	for (int i = 0; i < verticesSize; ++i)
 		processed[i] = vp.tr(vertices[i]);
 
-	//std::cout << " vert P normal after: " << processed[0].normal << std::endl << std::endl;
 	for (int i = 0; i < trianglesSize; ++i)
 	{
 		rasterizer.DrawTriangle(processed[indices[i].x], processed[indices[i].y], processed[indices[i].z], l, vp);
@@ -73,4 +71,23 @@ void Mesh::makeNormals()
 	
 	for (unsigned int i = 0; i < verticesSize; ++i)
 		normalize(vertices[i].normal);
+}
+
+void Mesh::makeUV()
+{
+	//Spherical mapping: x - u, y - v
+	for (unsigned int i = 0; i < verticesSize; ++i)
+	{		
+		//vertices[i].texturePos.x = (1 / (2 * PI)) * atan2(vertices[i].position.z, vertices[i].position.y);
+		//vertices[i].texturePos.x = (((vertices[i].texturePos.x - (-1)) * (1 - 0)) / (1 - (-1)) + 0);
+
+		vertices[i].texturePos.x = 0.5f + (atan2(vertices[i].position.x, vertices[i].position.z)) / (2 * PI);
+		
+		//vertices[i].texturePos.y = (1 / PI) * tan(vertices[i].position.y / (sqrt(vertices[i].position.x * vertices[i].position.x + vertices[i].position.y * vertices[i].position.y + vertices[i].position.z * vertices[i].position.z)));
+		//vertices[i].texturePos.y = (((vertices[i].texturePos.y - (-1)) * (1 - 0)) / (1 - (-1)) + 0);
+
+		vertices[i].texturePos.y = 0.5f + (asin(vertices[i].position.y)) / PI;
+
+		vertices[i].texturePos.z = 0.0f;
+	}
 }

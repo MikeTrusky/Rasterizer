@@ -20,3 +20,18 @@ int TGABuffer::saveFile(const char * fileName)
 	fclose(f);
 	return 0;
 }
+
+int TGABuffer::loadFile(const char* fileName)
+{
+	unsigned short header[9];
+	FILE *f = fopen(fileName, "rb+");
+	if (NULL == f) return -1;
+
+	fread(header, 2, 9, f);
+	if (w != header[6] || h != header[7]) return -2;
+
+	fread(frame, 4, w*h, f);
+
+	fclose(f);
+	return 0;
+}

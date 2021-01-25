@@ -18,5 +18,7 @@ public:
 	float getDepth(int x, int y);
 
 	void setPixelColor(int x, int y, const Color &color);
-};
 
+	//Variable for calculating light for textured objects or not
+	bool calcLight = true;
+};

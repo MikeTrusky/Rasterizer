@@ -128,11 +128,11 @@ Vertex VertexProcessor::tr(const Vertex & v)
 
 	if (r.w != 0)
 	{
-		return Vertex(r.x / r.w, r.y / r.w, r.z / r.w, v.normal.x, v.normal.y, v.normal.z);
+		return Vertex(r.x / r.w, r.y / r.w, r.z / r.w, v.normal.x, v.normal.y, v.normal.z, v.texturePos.x, v.texturePos.y);
 	}
 	else
 	{
-		return Vertex(r.x, r.y, r.z, v.normal.x, v.normal.y, v.normal.z);
+		return Vertex(r.x, r.y, r.z, v.normal.x, v.normal.y, v.normal.z, v.texturePos.x, v.texturePos.y);
 	}
 }
 
